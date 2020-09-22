@@ -73,7 +73,47 @@
         </nav>
 
         <main class="py-4">
+
+            <!-- Content here --> 
+
+            <div class="container">
+    <div class="row justify-content-center">
+    <!-- This section will be common to other pages so I thats why  this inside layouts/app  -->
+    <!-- We use @auth @endauth for logged in user-->
+    <!-- We use @guest @endguest for guest-->
+
+    @auth
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Sidebar
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <a href="{{route('posts.create')}}">Adauga Postare</a>
+                        </div>
+                        <div class="list-group-item">
+                            <a href="{{route('posts.index')}}">Vizualiza postarile</a>
+                        </div>
+                        <div class="list-group-item">
+                            <a href="{{route('categories.index')}}">Categorii</a>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+
+        </div>
+        @endauth
+
+        @guest
+        <h3>Please Login / Register to continue.</h3>
+        
+        @endguest
             @yield('content')
+    </div>
+    </div>
+
         </main>
     </div>
 </body>

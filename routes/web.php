@@ -17,4 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
+//Add Posts routes 
+Route::resource('posts', 'PostController');
+
+//Add Categories routes
+Route::resource('categories', 'CategoryController');
+
+//This is named route which makes it easier to use during links 
 Route::get('/home', 'HomeController@index')->name('home');
