@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
+use App\Category;
 
 class CategoryController extends Controller
 {
@@ -13,7 +15,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories.index');
+        //To get all categories using eloquoent 
+
+
+        $categories = Category::all();
+
+        //Now send this variable to view
+
+        return view('categories.index')->with('categories', $categories);
     }
 
     /**
@@ -43,7 +52,25 @@ class CategoryController extends Controller
         ]);
 
         //2. Create and save
+        //We will use Category Model Class
+        //This saves the category 
+        $cat = new Category;
+
+        $cat->name = $request->name;
+
+        $cat->save();
+
+        //Flash Message
+        //Lets add a flash message using session
+
+        Session::flash('success', 'Succesfully add a category');
+
+
+
+
         //3. Redirect
+        //We can use back() function to redirect to same page
+        return redirect()->back();
 
     }
 

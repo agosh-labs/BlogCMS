@@ -12,4 +12,10 @@ class Post extends Model
 
     //This is default naming convention in terms of model name 
     protected $table = "posts";
+
+
+    //Posts belogsTo one Category
+    public function category(){
+        return $this->belongsTo('App\Post');
+    }
 }

@@ -21,10 +21,13 @@
                                 <th>Nume: </th>
                             </thead>
                             <tbody>
+                            <!-- Get all categories -->
+                            @foreach($categories as $cat)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$cat->id}}</td>
+                                    <td>{{$cat->name}}</td>
                                 </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
