@@ -7,7 +7,12 @@
             <div class="card-header">Adauga o postare noua</div>
 
             <div class="card-body">
-                <form action="" method="post">
+            <!-- Add route also enctype -->
+                <form action="{{route('posts.store')}}" method="post" enctype="multipart/form-data">
+
+                    <!-- CSRF field -->
+                    @csrf
+
                     <label for="">Title</label>
                     <input type="text" name="title" class="form-control">
 
@@ -16,6 +21,16 @@
 
                     <label for="">Select Category</label>
                     <!-- We need to get categories here-->
+                    <!-- We just need to store category_id -->
+                    <select name="category_id" class="form-control">
+                    
+                    @foreach ($categories as $cat)
+
+                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+
+                    @endforeach
+
+                    </select>
 
                     <br>
 

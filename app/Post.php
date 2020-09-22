@@ -13,9 +13,17 @@ class Post extends Model
     //This is default naming convention in terms of model name 
     protected $table = "posts";
 
+    //Lets add similar in User model's syntax
+    //We made only these fields fillable 
+
+    protected $fillable = [
+
+        'title', 'content', 'category_id', 'featured'
+    ];
+
 
     //Posts belogsTo one Category
     public function category(){
-        return $this->belongsTo('App\Post');
+        return $this->belongsTo('App\Category');
     }
 }

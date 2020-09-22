@@ -20,13 +20,19 @@
                     </thead>
 
                     <tbody>
+                    <!-- Lets get all posts here -->
+
+                    @foreach($posts as $post)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{$post->id}}</td>
+                            <td>{{$post->title}}</td>
+                            <td>{{$post->content}}</td>
+                            <td>
+                                <img src="{{url($post->featured)}}" alt="{{$post->title}}" width="60" height="auto">
+                            </td>
+                            <td>Add Later</td>
                         </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

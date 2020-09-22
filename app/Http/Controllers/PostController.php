@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
+use App\Category;
+use App\Post;
 
 class PostController extends Controller
 {
@@ -13,8 +16,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        $posts = Post::all();
+
+
+
         //We create a view and load here
-        return view('posts.index');
+        return view('posts.index')->with('posts', $posts);
     }
 
     /**
@@ -24,7 +31,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+
+        //Get all categories 
+        $categories = Category::all();
+
+        return view('posts.create')->with('categories', $categories);
     }
 
     /**
@@ -35,7 +46,46 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validation
+        //Another method of 
+        $this->validate($request, [
+            'title' => 'required',
+            'featured' => 'required|image',
+            'content' => 'required',
+            'category_id' => 'required'
+
+        ]);
+
+        //Change image
+        //We need to change the image name because user might upload image with same name twice
+        $featured = $request->featured;
+        $originalName = $featured->getClientOriginalName();
+        $featured_new_name = 'image-' . time() . '-' . $originalName;
+        //We will store this name 
+        //echo $featured_new_name;
+
+        //And lets save the image to a directory inside public
+        //We can use move method 
+        $featured->move('uploads/posts', $featured_new_name);
+
+        //Create Post
+        //Lets use create() method 
+        //Add path as well it makes it easier during view
+        $post = Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'featured' => 'uploads/posts/' . $featured_new_name, 
+            'category_id' => $request->category_id
+        ]);
+
+        //Flash message
+        Session::flash('success', 'Post has been created.');
+
+
+
+        //Redirect to index of posts 
+        //We can use route for this
+        return redirect()->route('posts.index');
     }
 
     /**
