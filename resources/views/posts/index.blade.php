@@ -30,7 +30,10 @@
                             <td>
                                 <img src="{{url($post->featured)}}" alt="{{$post->title}}" width="60" height="auto">
                             </td>
-                            <td>Add Later</td>
+                            <!-- We can use the relationship to get the category of each post directly -->
+                            <td>
+                                {{$post->category->name}}
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

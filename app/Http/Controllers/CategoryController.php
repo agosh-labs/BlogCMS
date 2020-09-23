@@ -48,7 +48,7 @@ class CategoryController extends Controller
         //This will automatically redirect back if fails
         //There are auto fixed error which can be displayed
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|min:4'
         ]);
 
         //2. Create and save
@@ -70,7 +70,8 @@ class CategoryController extends Controller
 
         //3. Redirect
         //We can use back() function to redirect to same page
-        return redirect()->back();
+        //Redirect with inputs
+        return redirect()->back()->withInput();
 
     }
 
@@ -93,7 +94,13 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Need to have id sent here
+        //Find category of this id
+
+        $category = Category::find($id);
+   
+        //Send to edit category
+        return view('categories.edit')->with('category', $category);
     }
 
     /**
@@ -105,7 +112,23 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:4'
+        ]);
+
+        //Finds this category
+        $category = Category::find($id);
+
+        //Use this to update
+
+        $category->name = $request->name;
+
+        $category->save();
+
+        Session::flash('success', 'Category updated succesfully');
+
+        return redirect()->route('categories.index');
+
     }
 
     /**

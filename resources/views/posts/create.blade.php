@@ -14,7 +14,7 @@
                     @csrf
 
                     <label for="">Title</label>
-                    <input type="text" name="title" class="form-control">
+                    <input type="text" name="title" value="{{old('title')}}" class="form-control">
 
                     <br>
 
@@ -22,11 +22,14 @@
                     <label for="">Select Category</label>
                     <!-- We need to get categories here-->
                     <!-- We just need to store category_id -->
+                    <!-- Lets check each id with the old category_id to select appropiate category after validation errors -->
                     <select name="category_id" class="form-control">
                     
                     @foreach ($categories as $cat)
 
-                        <option value="{{$cat->id}}">{{$cat->name}}</option>
+                        <option value="{{$cat->id}}" {{old('category_id') == $cat->id ? 'selected': ''}}>
+                            {{$cat->name}}
+                        </option>
 
                     @endforeach
 
@@ -40,7 +43,7 @@
                     <br>
 
                     <label for="">Content</label>
-                    <textarea name="content" id="" class="form-control" rows="10"></textarea>
+                    <textarea name="content" id="" class="form-control" rows="10">{{old('content')}}</textarea>
 
                     <br>
 

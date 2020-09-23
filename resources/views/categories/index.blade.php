@@ -15,10 +15,14 @@
                
                     <div class="col-md-6">
                     <!-- We created table to view categories-->
+                    <!-- Lets Get count of posts for each category-->
                         <table class="table table-bordered table-condensed">
                             <thead>
                                 <th width="30">S.N.</th>
                                 <th>Nume: </th>
+                                <th>Posts count:</th>
+                                <th>Actions</th>
+                                <!-- -->
                             </thead>
                             <tbody>
                             <!-- Get all categories -->
@@ -26,6 +30,13 @@
                                 <tr>
                                     <td>{{$cat->id}}</td>
                                     <td>{{$cat->name}}</td>
+                                    <td>
+                                        {{$cat->posts->count()}}
+                                    </td>
+                                    <td>
+                                        <!-- Added a link to edit to route  -->
+                                        <a href="{{route('categories.edit', $cat->id)}}">Edit</a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -38,7 +49,7 @@
                         <!-- We need to add a method to prevent csrf attack -->
                             @csrf
                             <label for="Cat"><strong>Adauga Categorie</strong></label>
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" value="{{old('name')}}" name="name" class="form-control">
 
                             <br>
 

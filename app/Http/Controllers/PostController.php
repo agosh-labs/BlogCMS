@@ -85,7 +85,7 @@ class PostController extends Controller
 
         //Redirect to index of posts 
         //We can use route for this
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->withInput();
     }
 
     /**
