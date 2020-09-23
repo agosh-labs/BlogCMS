@@ -107,7 +107,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Send to new page with edit form
+        $post = Post::find($id);
+        //need categories as well
+        $categories = Category::all();
+
+        return view('posts.edit')->with('post', $post)
+                                 ->with('categories', $categories);
     }
 
     /**
@@ -119,7 +125,43 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Make featured not required as user may not need to update it
+        $this->validate($request, [
+            'title' => 'required',
+            'featured' => 'image',
+            'content' => 'required',
+            'category_id' => 'required'
+
+        ]);
+
+        $post = Post::find($id);
+
+        if($request->hasFile('featured')) {
+            $featured = $request->featured;
+            $originalName = $featured->getClientOriginalName();
+            $featured_new_name = 'image-' . time() . '-' . $originalName;
+
+            //Move
+            $featured->move('uploads/posts', $featured_new_name);
+
+            //Now need to update to new name
+            $post->featured = 'uploads/posts' .  $featured_new_name;
+        }
+
+        //Update remaining fields
+        
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->category_id = $request->category_id;
+
+        $post->save();
+
+        Session:: flash('success', 'Post has been succesfully updated.');
+
+
+        return redirect()->route('posts.index');
+         
+
     }
 
     /**

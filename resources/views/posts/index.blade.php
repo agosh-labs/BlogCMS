@@ -16,6 +16,7 @@
                             <th>Content</th>
                             <th>Image</th>
                             <th>Category</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
@@ -33,6 +34,9 @@
                             <!-- We can use the relationship to get the category of each post directly -->
                             <td>
                                 {{$post->category->name}}
+                            </td>
+                            <td>
+                                <a href="{{route('posts.edit', $post->id)}}">Edit</a>
                             </td>
                         </tr>
                     @endforeach
