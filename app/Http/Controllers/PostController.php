@@ -17,6 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
+        
 
 
 
@@ -34,6 +35,15 @@ class PostController extends Controller
 
         //Get all categories 
         $categories = Category::all();
+
+        //Count categories and redirect if 0 with message 
+        if($categories->count() == 0){
+
+            //Add new message type as info
+            Session::flash('info', 'Please add a category before continiue.');
+
+            return redirect()->back();
+        } 
 
         return view('posts.create')->with('categories', $categories);
     }
@@ -71,11 +81,13 @@ class PostController extends Controller
         //Create Post
         //Lets use create() method 
         //Add path as well it makes it easier during view
+        //We will use an available function to convert title to slug 
         $post = Post::create([
             'title' => $request->title,
             'content' => $request->content,
             'featured' => 'uploads/posts/' . $featured_new_name, 
-            'category_id' => $request->category_id
+            'category_id' => $request->category_id,
+            'slug' => str_slug($request->title)
         ]);
 
         //Flash message

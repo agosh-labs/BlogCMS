@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //So before using the new seeder need to init here 
+        $this->call(UsersTableSeeder::class);
         // $this->call(UsersTableSeeder::class);
     }
 }

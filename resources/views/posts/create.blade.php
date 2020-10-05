@@ -18,11 +18,14 @@
 
                     <br>
 
-
+                    <!-- After fresh migration no categories are available to add here 
+                        So Lets check in controller and redirect if no category exist -->
                     <label for="">Select Category</label>
                     <!-- We need to get categories here-->
                     <!-- We just need to store category_id -->
                     <!-- Lets check each id with the old category_id to select appropiate category after validation errors -->
+
+                    
                     <select name="category_id" class="form-control">
                     
                     @foreach ($categories as $cat)

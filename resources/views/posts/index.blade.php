@@ -21,6 +21,8 @@
                     </thead>
 
                     <tbody>
+
+                    @if (count($posts) > 0 )
                     <!-- Lets get all posts here -->
 
                     @foreach($posts as $post)
@@ -40,6 +42,14 @@
                             </td>
                         </tr>
                     @endforeach
+
+                    @else
+
+                    <tr>
+                        <td colspan="6">No posts have been found</td>
+                    </tr>
+
+                    @endif
                     </tbody>
                 </table>
             </div>

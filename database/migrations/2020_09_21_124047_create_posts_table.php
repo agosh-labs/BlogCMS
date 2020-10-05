@@ -22,10 +22,14 @@ class CreatePostsTable extends Migration
 
             //Add some columns
             $table->string('title');
+            $table->string('slug');
             $table->text('content');
 
             //For featured image
             $table->string('featured');
+            //Laravel provides this feature by setting up some setting
+            //This will create a new field in the table 
+            $table->softDeletes();
             $table->timestamps();
         });
     }

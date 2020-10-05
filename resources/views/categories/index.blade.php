@@ -26,6 +26,7 @@
                             </thead>
                             <tbody>
                             <!-- Get all categories -->
+                            @if(count($categories) > 0)
                             @foreach($categories as $cat)
                                 <tr>
                                     <td>{{$cat->id}}</td>
@@ -39,6 +40,11 @@
                                     </td>
                                 </tr>
                             @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="4">No categories at the moment.</td>
+                                </tr>
+                            @endif
                             </tbody>
                         </table>
                     </div>
